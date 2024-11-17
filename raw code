@@ -3,7 +3,6 @@ local ScreenGui = Instance.new("ScreenGui")
 local MainFrame, Title, KeyFrame = Instance.new("Frame"), Instance.new("TextLabel"), Instance.new("Frame")
 local KeyTitle, KeyInput, SubmitButton = Instance.new("TextLabel"), Instance.new("TextBox"), Instance.new("TextButton")
 local GetKeyButton = Instance.new("TextButton")  -- Кнопка для получения ключа
-local Notification = Instance.new("TextLabel")  -- Уведомление о копировании
 local TabsFrame, ContentFrame = Instance.new("Frame"), Instance.new("Frame")
 local ESPFrame, PlayerFrame, MiscFrame, InfoFrame = Instance.new("Frame"), Instance.new("Frame"), Instance.new("Frame"), Instance.new("Frame")
 local dragging, dragStart, startPos = false, nil, nil
@@ -81,17 +80,6 @@ GetKeyButton.Font = Enum.Font.GothamBold
 GetKeyButton.FontSize = Enum.FontSize.Size18
 GetKeyButton.TextScaled = true
 GetKeyButton.Parent = KeyFrame
-
--- Уведомление о копировании
-Notification.Size = UDim2.new(1, 0, 0, 50)
-Notification.Position = UDim2.new(0, 0, 0, 210)
-Notification.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-Notification.TextColor3 = Color3.fromRGB(255, 255, 255)
-Notification.Font = Enum.Font.GothamBold
-Notification.FontSize = Enum.FontSize.Size24
-Notification.TextScaled = true
-Notification.Text = ""
-Notification.Parent = KeyFrame
 
 -- Создание вкладок
 local function createTabButton(name, position)
@@ -224,14 +212,6 @@ SubmitButton.MouseButton1Click:Connect(function()
 		KeyInput.Text = ""
 		KeyInput.PlaceholderText = "Invalid key, try again"
 	end
-end)
-
-GetKeyButton.MouseButton1Click:Connect(function()
-	setclipboard("https://discord.gg/Ma688VtARC")  -- Копируем ссылку в буфер обмена
-	Notification.Text = "Copied to clipboard!"  -- Уведомление
-	Notification.Visible = true  -- Показываем уведомление
-	wait(2)  -- Ждем 2 секунды
-	Notification.Visible = false  -- Скрываем уведомление
 end)
 
 ESPButton.MouseButton1Click:Connect(function() showFrame(ESPFrame) end)
