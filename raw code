@@ -105,7 +105,7 @@ espPlayersButton.BackgroundColor3, espPlayersButton.Text = Color3.fromRGB(90, 90
 espPlayersButton.TextColor3, espPlayersButton.Font, espPlayersButton.FontSize, espPlayersButton.TextScaled = Color3.fromRGB(255, 255, 255), Enum.Font.GothamBold, Enum.FontSize.Size18, true
 espPlayersButton.Parent = ESPFrame
 
--- Активация ESP
+-- Активация ESP с именами
 local function activateESP()
 	for _, player in pairs(Players:GetPlayers()) do
 		if player ~= Players.LocalPlayer then
@@ -114,6 +114,20 @@ local function activateESP()
 			highlight.Adornee = player.Character:WaitForChild("HumanoidRootPart")
 			highlight.FillColor, highlight.FillTransparency = Color3.new(1, 1, 1), 0.5
 			highlight.OutlineColor, highlight.OutlineTransparency = Color3.new(1, 1, 1), 0
+
+			-- Создание BillboardGui для отображения имени
+			local billboard = Instance.new("BillboardGui")
+			billboard.Adornee = player.Character:WaitForChild("Head")
+			billboard.Size = UDim2.new(0, 100, 0, 50)
+			billboard.StudsOffset = Vector3.new(0, 2, 0) -- Смещение над головой
+			billboard.Parent = player.Character.Head
+
+			local nameLabel = Instance.new("TextLabel")
+			nameLabel.Size = UDim2.new(1, 0, 1, 0)
+			nameLabel.BackgroundTransparency = 1
+			nameLabel.TextColor3 = Color3.new(1, 1, 1)
+			nameLabel.Text = player.Name
+			nameLabel.Parent = billboard
 		end
 	end
 end
