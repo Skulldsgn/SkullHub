@@ -2,6 +2,7 @@ local Players = game:GetService("Players")
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame, Title, KeyFrame = Instance.new("Frame"), Instance.new("TextLabel"), Instance.new("Frame")
 local KeyTitle, KeyInput, SubmitButton = Instance.new("TextLabel"), Instance.new("TextBox"), Instance.new("TextButton")
+local GetKeyButton = Instance.new("TextButton")  -- Кнопка для получения ключа
 local TabsFrame, ContentFrame = Instance.new("Frame"), Instance.new("Frame")
 local ESPFrame, PlayerFrame, MiscFrame, InfoFrame = Instance.new("Frame"), Instance.new("Frame"), Instance.new("Frame"), Instance.new("Frame")
 local dragging, dragStart, startPos = false, nil, nil
@@ -68,6 +69,17 @@ SubmitButton.Position = UDim2.new(0.25, 0, 0, 110)
 SubmitButton.BackgroundColor3, SubmitButton.Text = Color3.fromRGB(90, 90, 90), "Submit"
 SubmitButton.TextColor3, SubmitButton.Font, SubmitButton.FontSize, SubmitButton.TextScaled = Color3.fromRGB(255, 255, 255), Enum.Font.GothamBold, Enum.FontSize.Size18, true
 SubmitButton.Parent = KeyFrame
+
+-- Кнопка "Get Key"
+GetKeyButton.Size = UDim2.new(1, 0, 0, 40)
+GetKeyButton.Position = UDim2.new(0, 0, 0, 160)  -- Позиция ниже поля ввода
+GetKeyButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+GetKeyButton.Text = "Get Key"
+GetKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+GetKeyButton.Font = Enum.Font.GothamBold
+GetKeyButton.FontSize = Enum.FontSize.Size18
+GetKeyButton.TextScaled = true
+GetKeyButton.Parent = KeyFrame
 
 -- Создание вкладок
 local function createTabButton(name, position)
