@@ -5,6 +5,7 @@ local KeyTitle, KeyInput, SubmitButton = Instance.new("TextLabel"), Instance.new
 local TabsFrame, ContentFrame = Instance.new("Frame"), Instance.new("Frame")
 local ESPFrame, PlayerFrame, MiscFrame, InfoFrame = Instance.new("Frame"), Instance.new("Frame"), Instance.new("Frame"), Instance.new("Frame")
 local dragging, dragStart, startPos = false, nil, nil
+local godModeEnabled = false
 
 -- Настройки GUI
 ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -128,6 +129,18 @@ espPlayersButton.FontSize = Enum.FontSize.Size18
 espPlayersButton.TextScaled = true
 espPlayersButton.Parent = ESPFrame
 
+-- Кнопка Godmode
+local godmodeButton = Instance.new("TextButton")
+godmodeButton.Size = UDim2.new(0.5, 0, 0, 40)
+godmodeButton.Position = UDim2.new(0.25, 0, 0, 70)
+godmodeButton.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+godmodeButton.Text = "Godmode"
+godmodeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+godmodeButton.Font = Enum.Font.GothamBold
+godmodeButton.FontSize = Enum.FontSize.Size18
+godmodeButton.TextScaled = true
+godmodeButton.Parent = PlayerFrame
+
 -- Активация ESP с именами и обводкой
 local function activateESP()
 	for _, player in pairs(Players:GetPlayers()) do
@@ -157,6 +170,25 @@ local function activateESP()
 	end
 end
 
+-- Функция активации Godmode
+local function toggleGodMode()
+	godModeEnabled = not godModeEnabled
+	local player = Players.LocalPlayer
+	local character = player.Character or player.CharacterAdded:Wait()
+	local humanoid = character:WaitForChild("Humanoid")
+
+	if godModeEnabled then
+		humanoid.MaxHealth = math.huge -- Устанавливаем максимальное здоровье
+		humanoid.HealthChanged:Connect(function(health)
+			if health < humanoid.MaxHealth then
+				humanoid.Health = humanoid.MaxHealth -- Восстанавливаем здоровье
+			end
+		end)
+	else
+		humanoid.MaxHealth = 100 -- Возвращаем максимальное здоровье к норме
+	end
+end
+
 -- Обработчики кликов
 SubmitButton.MouseButton1Click:Connect(function()
 	if KeyInput.Text == "JoinMyDiscord" then
@@ -174,6 +206,7 @@ PlayerButton.MouseButton1Click:Connect(function() showFrame(PlayerFrame) end)
 MiscButton.MouseButton1Click:Connect(function() showFrame(MiscFrame) end)
 InfoButton.MouseButton1Click:Connect(function() showFrame(InfoFrame) end)
 espPlayersButton.MouseButton1Click:Connect(activateESP)
+godmodeButton.MouseButton1Click:Connect(toggleGodMode)
 
 -- Изначально показываем окно для ввода ключа
 MainFrame.Visible = false
