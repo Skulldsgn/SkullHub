@@ -154,7 +154,7 @@ local function activateESP()
 			-- Создание BillboardGui для отображения имени
 			local billboard = Instance.new("BillboardGui")
 			billboard.Adornee = player.Character:WaitForChild("Head")
-			billboard.Size = UDim2.new(0, 150, 0, 50) -- Увеличиваем размер
+			billboard.Size = UDim2.new(0, 200, 0, 50) -- Увеличиваем размер
 			billboard.StudsOffset = Vector3.new(0, 2, 0) -- Смещение над головой
 			billboard.AlwaysOnTop = true -- Имя всегда сверху
 			billboard.Parent = player.Character.Head
@@ -179,6 +179,7 @@ local function toggleGodMode()
 
 	if godModeEnabled then
 		humanoid.MaxHealth = math.huge -- Устанавливаем максимальное здоровье
+		humanoid.Health = humanoid.MaxHealth -- Устанавливаем текущее здоровье равным максимальному
 		humanoid.HealthChanged:Connect(function(health)
 			if health < humanoid.MaxHealth then
 				humanoid.Health = humanoid.MaxHealth -- Восстанавливаем здоровье
